@@ -9,7 +9,7 @@
 	
 	<title>
 	
-		Hello World | 
+		PWN題目部署 | 
 	 
 	Hexo
 	</title>
@@ -123,7 +123,7 @@ var _hmt = _hmt || [];
 
 			
 							<ul>
-								<li class="file">
+								<li class="file active">
 									<a href="/2022/05/08/PWN%E9%A1%8C%E7%9B%AE%E9%83%A8%E7%BD%B2/">
                      
 										    PWN題目部署
@@ -134,7 +134,7 @@ var _hmt = _hmt || [];
 							</ul>
 			
 							<ul>
-								<li class="file active">
+								<li class="file">
 									<a href="/2022/05/08/hello-world/">
                      
 										    hello-world
@@ -151,12 +151,12 @@ var _hmt = _hmt || [];
 	<!-- 引入正文 -->
 	<div id="content">
 		<h1 id="article-title">
-	Hello World
+	PWN題目部署
 </h1>
 <div class="article-meta">
 	
 	<span>KDDC</span>
-	<span>2022-05-08 22:41:39</span>
+	<span>2022-05-08 23:30:21</span>
 		<div id="article-categories">
     
 		<span>Categories：</span>
@@ -172,19 +172,34 @@ var _hmt = _hmt || [];
 </div>
 
 <div id="article-content">
-	<p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+	<h1 id="PWN-保護機制"><a href="#PWN-保護機制" class="headerlink" title="PWN 保護機制"></a>PWN 保護機制</h1><h6 id="tags-pwn"><a href="#tags-pwn" class="headerlink" title="tags: pwn"></a>tags: <code>pwn</code></h6><h2 id="全部關閉"><a href="#全部關閉" class="headerlink" title="全部關閉"></a>全部關閉</h2><p><code>gcc test.c -fno-stack-protector -zexecstack -no-pie -o test</code></p>
+<h2 id="Canary"><a href="#Canary" class="headerlink" title="Canary"></a>Canary</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc $Source -fno-stack-protector -o $Binary</span><br></pre></td></tr></table></figure>
+<h2 id="NX-No-eXecute"><a href="#NX-No-eXecute" class="headerlink" title="NX (No eXecute)"></a>NX (No eXecute)</h2><p>全名為 Data Execution Prevention，又稱 DEP</p>
+<p>可以寫的，不可以執行。<br>可以執行的，不可以寫。<br>主要防範 Shell Code 造成的安全問題。</p>
+<p>關閉方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc $Source -zexecstack -o $Binary</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="ALSR"><a href="#ALSR" class="headerlink" title="ALSR"></a>ALSR</h2><ul>
+<li>位址空間組態隨機化（ASLR, Address space layout randomization），主要是作業系統上對於 Process 的防護機制，會使每次執行 Stack、Heap、library 位址隨機化，進而達到一些保護效果。不過並非真正隨機，最後12bits 是固定的。</li>
+</ul>
+<p>關閉方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># echo 0 &gt; /proc/sys/kernel/randomize_va_space</span><br></pre></td></tr></table></figure>
+<h2 id="PIE"><a href="#PIE" class="headerlink" title="PIE"></a>PIE</h2><p>全名為 Position-Independent Executable，主要影響的範圍為 Program Structure 的 Data、Code 段，讓該地方的記憶體位置隨機化，來增加被利用的難度。Ubuntu 16.04 預設關閉。</p>
+<p>關閉方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc $Source -no-pie -o $Binary</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h2 id="RELRO-RELocation-Read-Only"><a href="#RELRO-RELocation-Read-Only" class="headerlink" title="RELRO (RELocation Read Only)"></a>RELRO (RELocation Read Only)</h2><ul>
+<li>No RELRO - Link Map、GOT 可寫</li>
+<li>Partial RELRO - Link Map 不可寫、GOT 可寫</li>
+<li>Full RELRO - Link Map、GOT 皆不可寫<br>主要適用於防範 Lazy Binding 所造成的延伸問題。</li>
+</ul>
+<p>關閉方式：</p>
+<ul>
+<li><code>gcc $Source -o $Binary </code> </li>
+<li>默認情况下，是 Partial RELRO<br><code>gcc -z norelro $Source -o $Binary</code></li>
+<li>No RELRO<br><code>gcc -z lazy $Source -o $Binary </code></li>
+<li>Partial RELRO<br><code>gcc -z now $Source -o $Binary</code> </li>
+<li>Full RELRO<h2 id="各型態大小"><a href="#各型態大小" class="headerlink" title="各型態大小"></a>各型態大小</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">BYTE = <span class="number">8</span> BIT</span><br><span class="line">CHAR = <span class="number">1</span> BYTE</span><br><span class="line">INT = <span class="number">4</span> BYTE</span><br><span class="line">DOUBLE = <span class="number">8</span> BYTE</span><br><span class="line">LONG = <span class="number">4</span> BYTE</span><br><span class="line">SHORT = <span class="number">2</span> BYTE</span><br><span class="line">WORD = <span class="number">2</span> BYTE</span><br><span class="line">DWORD = <span class="number">4</span> BYTE = <span class="number">32B</span>IT</span><br></pre></td></tr></table></figure></li>
+</ul>
 
 </div>
 
@@ -192,13 +207,13 @@ var _hmt = _hmt || [];
     <div class="post-guide">
         <div class="item left">
             
-              <a href="/2022/05/08/PWN%E9%A1%8C%E7%9B%AE%E9%83%A8%E7%BD%B2/">
-                  <i class="fa fa-angle-left" aria-hidden="true"></i>
-                  PWN題目部署
-              </a>
-            
         </div>
         <div class="item right">
+            
+              <a href="/2022/05/08/hello-world/">
+                Hello World
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </a>
             
         </div>
     </div>

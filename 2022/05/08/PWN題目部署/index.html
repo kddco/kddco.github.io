@@ -166,13 +166,22 @@ var _hmt = _hmt || [];
     
 		<span>Tags：</span>
             
+                
+                    <span>
+                        <i class="fa fa-tag" aria-hidden="true">
+                        <a href="/tags/pwn/">pwn</a>
+                        </i>
+                    </span>
+                
+            
     
 		</div>
 
 </div>
 
 <div id="article-content">
-	<h1 id="PWN-保護機制"><a href="#PWN-保護機制" class="headerlink" title="PWN 保護機制"></a>PWN 保護機制</h1><h6 id="tags-pwn"><a href="#tags-pwn" class="headerlink" title="tags: pwn"></a>tags: <code>pwn</code></h6><h2 id="全部關閉"><a href="#全部關閉" class="headerlink" title="全部關閉"></a>全部關閉</h2><p><code>gcc test.c -fno-stack-protector -zexecstack -no-pie -o test</code></p>
+	<h1 id="PWN-保護機制"><a href="#PWN-保護機制" class="headerlink" title="PWN 保護機制"></a>PWN 保護機制</h1><p>kddco123123213123123</p>
+<h2 id="全部關閉"><a href="#全部關閉" class="headerlink" title="全部關閉"></a>全部關閉</h2><p><code>gcc test.c -fno-stack-protector -zexecstack -no-pie -o test</code></p>
 <h2 id="Canary"><a href="#Canary" class="headerlink" title="Canary"></a>Canary</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc $Source -fno-stack-protector -o $Binary</span><br></pre></td></tr></table></figure>
 <h2 id="NX-No-eXecute"><a href="#NX-No-eXecute" class="headerlink" title="NX (No eXecute)"></a>NX (No eXecute)</h2><p>全名為 Data Execution Prevention，又稱 DEP</p>
 <p>可以寫的，不可以執行。<br>可以執行的，不可以寫。<br>主要防範 Shell Code 造成的安全問題。</p>
